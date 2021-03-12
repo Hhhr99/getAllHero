@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 1200px;
+            margin: 50px auto;
+            /* background-color: yellowgreen; */
+        }
+
+        .box h3 {
+            text-align: center;
+            font-weight: normal;
+        }
+
+        .box-bottom {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .box-bottom>div {
+            width: 90px;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-flow: column;
+            margin-bottom: 22px;
+        }
+
+        .box-bottom>div img {
+            width: 66px;
+            height: 65px;
+        }
+
+        .box>div p {
+            font-size: 12px;
+            color: #999;
+
+        }
+
+        ul {
+            display: flex;
+            justify-content: start;
+            height: 60px;
+        }
+
+        ul li {
+            list-style: none;
+            width: 8%;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <ul>
+            <li><label><input type="radio" name="change" checked><span data-id=""> 所有英雄</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="fighter"> 战士</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="mage"> 法师</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="assassin"> 刺客</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="tank"> 坦克</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="marksman"> 射手</span></label></li>
+            <li><label><input type="radio" name="change"><span data-id="support"> 辅助</span></label></li>
+        </ul>
+        <div class="box-bottom"></div>
+    </div>
+
+    <script src="./libs/jquery-3.5.1.js"></script>
+    <script src="./libs/template-web.js"></script>
+    <script id="t1" type="text/html">
+        <!-- <h3>英雄</h3> -->
+
+
+        {{each list item}}
+    <div>
+        <img src="https://game.gtimg.cn/images/lol/act/img/champion/{{item.alias}}.png" alt="">
+        <p>{{item.name}}</p>
+    </div>
+    {{/each }}
+
+    </script>
+    <script>
+        /* function fn(arr = '') {
+            $.ajax({
+                url: 'https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js',
+                type: 'get',
+                data: {},
+                dataType: 'json',
+                success: (res) => {
+                    console.log(res.hero);
+                    //
+                    let str;
+                    if (arr == '') {
+                        // console.log(111);
+                        str = template('t1', { list: res.hero });
+                    } else {
+                        // console.log(res.hero[0].roles);
+                        let arr1 = [];
+                        res.hero.forEach(function (item, index) {
+                            // console.log(item.roles);
+                            if (item.roles.indexOf(arr) != -1) {
+                                arr1.push(item);
+                            }
+
+                        })
+                        str = template('t1', { list: arr1 });
+                    }
+
+                    $('.box-bottom').html(str)
+                }
+            })
+        } */
+
+        //用来装所有英雄数据
+        let arr;
+        function fn() {
+            $.ajax({
+                url: 'https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js',
+                type: 'get',
+                data: {},
+                dataType: 'json',
+                success: (res) => {
+                    console.log(res.hero);
+                    arr = res.hero;
+                    tem(arr);
+                }
+            })
+        }
+
+        //刷新时获取所有英雄
+        fn();
+
+        //点击单选框
+        $('ul input').on('click', function () {
+            console.log(arr);
+            const value = $(this).siblings('span').attr('data-id');
+            let arr1 = [];
+            arr.forEach(function (item, index) {
+                console.log(item.roles);
+                if (item.roles.indexOf(value) != -1) {
+                    arr1.push(item);
+                }
+            })
+            tem(arr1);
+        })
+
+        function tem(arr) {
+            str = template('t1', { list: arr });
+            $('.box-bottom').html(str)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="libs/jquery-3.5.1.js"></script>
+	<script src="libs/template-web.js"></script>
+	<script src="js/index.js"></script>
+	<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .list {
+            width: 1238px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid #ddd;
+            padding: 30px;
+        }
+
+        .list a {
+            width: 90px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: 0.4s;
+        }
+
+        .list a:hover {
+            transform: scale(1.1);
+        }
+
+        .list a img {
+            width: 65px;
+            height: 65px;
+        }
+
+        .list a p {
+            font-size: 14px;
+        }
+
+        #seleteChecklist {
+            list-style: none;
+        }
+
+        #seleteChecklist .selete-item {
+            float: left;
+            margin-right: 50px;
+        }
+
+        .radio {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            vertical-align: sub;
+	        position: relative;
+        }
+
+        .i {
+            display: inline-block;
+	        position: absolute;
+	        top: 1px;
+            left: 1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .i:hover{
+	        cursor: pointer;
+        }
+
+        .w {
+            width: 1240px;
+            margin: 20px auto;
+            /*border: 1px solid #e1e1e1;*/
+            overflow: hidden;
+        }
+        .current .i{
+            background-color: skyblue;
+        }
+        /*.current{*/
+        /*    height: 1px;*/
+        /*    width: 1px;*/
+	    /*    border-radius: 50%;*/
+        /*}*/
+	</style>
+</head>
+<body>
+<!--<button>获取LOL英雄</button>-->
+<div class="w">
+	<ul id="seleteChecklist" class="selete-checklist">
+		<li class="selete-item current all">
+		<span class="radio">
+			<i class="i" ></i>
+		</span>
+			<label data-id="">所有英雄</label>
+		</li>
+
+		<li class="selete-item fighter">
+		<span class="radio">
+			<i class="i"></i>
+		</span>
+			<label data-id="fighter">战士</label>
+		</li>
+
+		<li class="selete-item">
+
+		<span class="radio mage">
+			<i class="i"></i>
+		</span><label data-id="mage">法师</label>
+		</li>
+
+		<li class="selete-item assassin">
+		<span class="radio">
+			<i class="i"></i>
+		</span>
+			<label data-id="assassin">刺客</label>
+		</li>
+
+		<li class="selete-item tank">
+		<span class="radio">
+			<i class="i"></i>
+		</span>
+			<label data-id="tank">坦克</label>
+		</li>
+
+		<li class="selete-item marksman">
+		<span class="radio">
+			<i class="i"></i>
+		</span>
+			<label data-id="marksman">射手</label>
+		</li>
+
+		<li class="selete-item support">
+		<span class="radio">
+			<i class="i"></i>
+		</span>
+			<label data-id="support">辅助</label>
+		</li>
+	</ul>
+</div>
+<div class="list">
+	<!--	<div class="hero_item">-->
+	<!--		<a href="">-->
+	<!--			<img src="" alt="">-->
+	<!--			<p></p>-->
+	<!--		</a>-->
+	<!--	</div>-->
+</div>
+<script type="text/html" id="t1">
+	{{ each list item}}
+	<a class="hero_item" href="https://lol.qq.com/data/info-defail.shtml?id={{item.heroId}}">
+		<img src="http://game.gtimg.cn/images/lol/act/img/champion/{{item.alias}}.png"/>
+		<p>{{ item.name }}</p>
+	</a>
+	{{ /each }}
+</script>
+<script>
+
+</script>
+</body>
+</html>
